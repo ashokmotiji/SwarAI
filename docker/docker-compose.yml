@@ -1,0 +1,41 @@
+# Optional LiveKit for self-host: `docker compose -f docker/docker-compose.yml --profile with-livekit up`
+services:
+  livekit:
+    profiles: ["with-livekit"]
+    image: livekit/livekit-server:latest
+    command: ["--dev", "--bind", "0.0.0.0"]
+    ports:
+      - "7880:7880"
+      - "7881:7881/udp"
+      - "7882:7882/udp"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../.env
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  worker:
+    build:
+      context: ..
+      dockerfile: apps/voice-worker/Dockerfile
+    env_file:
+      - ../.env
+    depends_on:
+      - redis
+      - web
+    environment:
+      - SWARAI_APP_URL=http://web:3000
+      - REDIS_URL=redis://redis:6379

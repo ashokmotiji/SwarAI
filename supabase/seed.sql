@@ -1,0 +1,1 @@
+-- Optional seed data after migrations. Safe to leave empty for production projects.

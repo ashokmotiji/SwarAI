@@ -1,0 +1,26 @@
+[project]
+name = "swarai-voice-worker"
+version = "0.1.0"
+description = "SwarAI LiveKit agent worker (Sarvam default)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "livekit-agents[codecs]>=1.0",
+  "livekit-plugins-sarvam>=1.0",
+  "livekit-plugins-silero>=1.0",
+  "livekit-plugins-openai>=1.0",
+  "livekit-plugins-deepgram>=1.0",
+  "livekit-plugins-elevenlabs>=1.0",
+  "httpx>=0.27",
+  "python-dotenv>=1.0",
+]
+
+[project.scripts]
+swarai-agent = "swarai_agent.main:run_cli"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

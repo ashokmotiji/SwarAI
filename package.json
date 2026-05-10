@@ -1,0 +1,26 @@
+{
+  "name": "swarai",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "supabase:login": "npx supabase@latest login",
+    "supabase:link": "npx supabase@latest link",
+    "supabase:push": "npx supabase@latest db push",
+    "supabase:start": "npx supabase@latest start",
+    "supabase:stop": "npx supabase@latest stop",
+    "supabase:reset": "npx supabase@latest db reset",
+    "redis:start": "bash scripts/ensure-redis.sh"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp", "unrs-resolver", "esbuild", "@clerk/shared"]
+  }
+}
