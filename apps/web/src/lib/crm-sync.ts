@@ -22,8 +22,8 @@ export async function syncToCrm(settings: OrgSettings | null | undefined, payloa
   for (const provider of providers) {
     const config = settings?.[`${provider}Config`] as Record<string, unknown> | undefined;
     if (config?.enabled && config?.webhookUrl) {
-      const url = config.webhookUrl;
-      const secret = config.webhookSecret || process.env.SWARSALES_CRM_WEBHOOK_SECRET || "";
+      const url = config.webhookUrl as string;
+      const secret = (config.webhookSecret as string) || process.env.SWARSALES_CRM_WEBHOOK_SECRET || "";
 
       const body = JSON.stringify({
         source: "swarsales-ai",

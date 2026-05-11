@@ -42,8 +42,8 @@ export async function POST(req: Request) {
   const settings = (org?.settings as Record<string, unknown>) || {};
 
   if (body.channel === "whatsapp") {
-    const waId = settings.whatsappPhoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID;
-    const waToken = settings.whatsappAccessToken || process.env.WHATSAPP_ACCESS_TOKEN;
+    const waId = (settings.whatsappPhoneNumberId as string) || process.env.WHATSAPP_PHONE_NUMBER_ID;
+    const waToken = (settings.whatsappAccessToken as string) || process.env.WHATSAPP_ACCESS_TOKEN;
 
     if (!waId || !waToken) {
       return NextResponse.json({ error: "WhatsApp not configured for this org" }, { status: 400 });
