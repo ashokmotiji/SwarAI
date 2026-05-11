@@ -70,7 +70,7 @@ export default function MarketplacePage() {
               <CardHeader>
                 <div className="flex items-start justify-between gap-2">
                   <CardTitle className="text-base">{t.title}</CardTitle>
-                  {t.is_pro ? <Badge variant="secondary">Pro</Badge> : <Badge variant="primary">Free</Badge>}
+                  {t.is_pro ? <Badge variant="secondary">Pro</Badge> : <Badge variant="default">Free</Badge>}
                 </div>
                 <CardDescription>{t.description}</CardDescription>
               </CardHeader>

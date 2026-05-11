@@ -676,7 +676,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <Button type="button" variant="primary" onClick={() => void saveWebhook()} disabled={!settingsLoaded} className="w-full">
+            <Button type="button" variant="default" onClick={() => void saveWebhook()} disabled={!settingsLoaded} className="w-full">
               Save CRM Configurations
             </Button>
           </CardContent>
