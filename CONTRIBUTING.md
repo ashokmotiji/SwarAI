@@ -9,7 +9,7 @@ All contributors must follow the [Code of Conduct](./CODE_OF_CONDUCT.md). Be res
 ## How to contribute
 
 1. **Issues first (usually)** — For bugs or feature ideas, open an [issue](https://github.com/ashokmotiji/SwarAI/issues) so we can align before you invest heavy time. Small fixes (typos, obvious bugs) can go straight to a PR.
-2. **Fork & branch** — Create a branch from `main` (or `master` during transition) with a short descriptive name, e.g. `fix/health-redis-timeout`.
+2. **Fork & branch** — Create a branch from `main` with a short descriptive name, e.g. `fix/health-redis-timeout`.
 3. **Keep PRs focused** — One logical change per pull request makes review and rollback easier.
 4. **Describe the PR** — What changed, why, and how to verify (commands, screenshots for UI).
 
