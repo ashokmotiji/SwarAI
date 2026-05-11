@@ -22,6 +22,7 @@ All contributors must follow the [Code of Conduct](./CODE_OF_CONDUCT.md). Be res
 - **Lint:** `pnpm lint`
 - **Build:** `pnpm build`
 - **Tests:** `pnpm test` (placeholder suite today; extend with real tests in `apps/web` or packages as we grow)
+- **README screenshots:** `pnpm screenshots:readme` (Playwright + Chromium) updates `screenshots/*.png` from `/readme-preview/*` static pages
 - **Voice worker:** Python 3.11+, see `apps/voice-worker/README.md`
 - **Database:** Supabase — see `supabase/SETUP.md`
 

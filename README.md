@@ -39,13 +39,13 @@
 
 ## Screenshots
 
-Replace these placeholders with real assets under [`screenshots/`](./screenshots/) when you have them.
+Static UI previews (same design system as the signed-in app) generated from [`/readme-preview/*`](./apps/web/src/app/readme-preview/) via `pnpm screenshots:readme`. Regenerate after UI changes or swap files under [`screenshots/`](./screenshots/).
 
 | Dashboard | Call simulator |
 |:---:|:---:|
-| ![Dashboard](https://placehold.co/640x400/0A2540/00D4FF?text=SwarAI+Dashboard&font=roboto) | ![Call simulator](https://placehold.co/640x400/0A2540/00D4FF?text=Live+Call+Simulator&font=roboto) |
+| ![Dashboard](./screenshots/dashboard.png) | ![Call simulator](./screenshots/simulator.png) |
 | **Agent editor** | **Settings & billing** |
-| ![Agent editor](https://placehold.co/640x400/0A2540/00D4FF?text=Agent+Editor&font=roboto) | ![Settings](https://placehold.co/640x400/0A2540/00D4FF?text=Settings+%26+Billing&font=roboto) |
+| ![Agent editor](./screenshots/agent-editor.png) | ![Settings](./screenshots/settings.png) |
 
 **Local paths (optional):** `![Dashboard](./screenshots/dashboard.png)` · `![Simulator](./screenshots/simulator.png)` · `![Agent editor](./screenshots/agent-editor.png)` · `![Settings](./screenshots/settings.png)`
 
