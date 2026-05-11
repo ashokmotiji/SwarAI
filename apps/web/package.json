@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "echo \"@swarai/web: add Vitest/Playwright when ready (CI placeholder)\""
   },
   "dependencies": {
     "@clerk/nextjs": "^7.3.3",

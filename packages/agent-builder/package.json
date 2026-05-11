@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "test": "echo \"@swarai/agent-builder: no unit tests yet (CI placeholder)\""
   },
   "dependencies": {
     "@swarai/core": "workspace:*",

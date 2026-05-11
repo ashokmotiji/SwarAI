@@ -1,6 +1,62 @@
+<div align="center">
+
 # SwarAI
 
-Open-core voice AI platform: **Next.js 15** dashboard, **Clerk** auth, **Supabase** (Postgres + pgvector + Storage), **LiveKit** realtime, **Sarvam** as the default STT/TTS/LLM stack via a **Python LiveKit Agents** worker, **Twilio + Exotel** telephony hooks, **Stripe + Razorpay + PayU** billing helpers, in-dashboard **compliance & legal draft** pages, and **Docker Compose** for self-hosting.
+### Open-core voice AI platform for multilingual agents
+
+**Next.js 15** · **LiveKit** · **Supabase** · **Sarvam-ready worker** · **Telephony & billing hooks**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![CI](https://github.com/ashokmotiji/SwarAI/actions/workflows/ci.yml/badge.svg)](https://github.com/ashokmotiji/SwarAI/actions/workflows/ci.yml)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](./docker/docker-compose.yml)
+[![pnpm](https://img.shields.io/badge/pnpm-9.15-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![LiveKit](https://img.shields.io/badge/LiveKit-Realtime-00A8E1?logo=livekit&logoColor=white)](https://livekit.io)
+
+[**Quick start**](#quick-start-development) · [**Contributing**](./CONTRIBUTING.md) · [**Security**](./SECURITY.md) · [**Code of Conduct**](./CODE_OF_CONDUCT.md)
+
+</div>
+
+---
+
+## Open core & licensing
+
+**The code in this repository is open source under the [MIT License](./LICENSE)** — Copyright © 2025 Ashok Moti Ji & SwarAI contributors.
+
+**Open-core model:** the **core platform** in this monorepo is MIT-licensed. Certain **commercial** features, managed services, or enterprise distributions may be offered under **separate terms**; see the [“Open core and other offerings”](./LICENSE#open-core-and-other-offerings) section in `LICENSE`. If a file or package specifies another license, that text applies to that component.
+
+---
+
+## Quick demo & live preview
+
+> **Placeholder:** A hosted **live demo** and **video walkthrough** will be linked here.  
+> For now, run SwarAI locally with [Quick start](#quick-start-development) or bring it up with [Docker Compose](#docker-compose-self-host-sketch).
+
+**Planned:** public sandbox · recorded tour · embeddable widget example for docs.
+
+---
+
+## Screenshots
+
+Replace these placeholders with real assets under [`screenshots/`](./screenshots/) when you have them.
+
+| Dashboard | Call simulator |
+|:---:|:---:|
+| ![Dashboard](https://picsum.photos/seed/swarai-dashboard/640/400) | ![Call simulator](https://picsum.photos/seed/swarai-sim/640/400) |
+| **Agent editor** | **Settings & billing** |
+| ![Agent editor](https://picsum.photos/seed/swarai-agent/640/400) | ![Settings](https://picsum.photos/seed/swarai-settings/640/400) |
+
+**Local paths (optional):** `![Dashboard](./screenshots/dashboard.png)` · `![Simulator](./screenshots/simulator.png)` · `![Agent editor](./screenshots/agent-editor.png)` · `![Settings](./screenshots/settings.png)`
+
+---
+
+## Roadmap
+
+- **Quality & ops:** Expand automated tests, CI coverage, and runbooks for telephony / LiveKit SIP.
+- **Developer experience:** CLI bootstrap, more examples, and Kubernetes / Helm references alongside Docker Compose.
+- **Channels & speech:** Deeper docs for WhatsApp, inbound/outbound PSTN, and additional provider stacks.
+- **Community:** Public demo environment, discussion hub, and contributor recognition.
 
 ## Monorepo layout
 
@@ -60,7 +116,7 @@ Use `SWARAI_APP_URL=http://web:3000` for the worker in Compose so shutdown trans
 SwarAI optimizes for **one realtime transport (LiveKit)** and **swappable speech/LLM providers** rather than a single vendor’s end-to-end speech API. That pattern scores best for a product that must span **web, embed, SIP phone, and future WhatsApp** while staying strong in **Indian languages** and still competitive globally.
 
 | Goal | Recommendation |
-|------|------------------|
+|------|----------------|
 | Cross-channel audio (web + embed + phone) | **LiveKit** rooms + SIP bridge (Twilio/Exotel) — same agent worker, same session model. |
 | India / Hinglish / regional quality | **Sarvam** Saaras v3 + Bulbul v3 + Sarvam-m as **default** (`provider_stack: sarvam`). |
 | Global enterprise / voice branding | **`deepgram_elevenlabs_openai`** on the worker — multilingual STT, chosen TTS voice, your LLM. |
@@ -98,6 +154,8 @@ Single-stack **speech-to-speech** products can win on **English-only** simplicit
 
 The schema includes India-first defaults (`data_region`, audit-friendly tables). Use **Dashboard → Compliance / Legal drafts** as an internal starting point. Production DPDP compliance still requires your **hosting region**, **DPA**, **subprocessor list**, **retention**, and **operational** controls — finalize with qualified counsel.
 
-## License
+## License & attribution
 
-Add your preferred open-core / commercial license split under `packages/core` feature flags as you productize.
+SwarAI is released under the **[MIT License](./LICENSE)**. By contributing, you agree your contributions are licensed under the same terms — see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+Commercial or separately licensed offerings, if any, are described in [`LICENSE`](./LICENSE#open-core-and-other-offerings).
