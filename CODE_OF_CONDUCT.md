@@ -60,7 +60,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at the repository
-maintainers via **[GitHub Issues](https://github.com/ashokmotiji/SwarAI/issues)**
+maintainers via **[GitHub Issues](https://github.com/ashokmotiji/SwarSales-AI/issues)**
 (use a title like `[Conduct]` and describe the situation; for sensitive reports,
 use GitHub’s private reporting or contact options the maintainers publish on
 their profile).

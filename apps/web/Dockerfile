@@ -8,7 +8,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 COPY packages ./packages
 COPY apps/web ./apps/web
 RUN pnpm install --frozen-lockfile
-RUN pnpm --filter @swarai/web build
+RUN pnpm --filter @swarsales/web build
 
 FROM node:20-bookworm-slim AS runner
 WORKDIR /app

@@ -45,6 +45,9 @@ export default function SettingsPage() {
   const [webhookSecret, setWebhookSecret] = useState("");
   const [crmWebhookUrl, setCrmWebhookUrl] = useState("");
   const [crmWebhookSecret, setCrmWebhookSecret] = useState("");
+  const [hubspotConfig, setHubspotConfig] = useState({ enabled: false, webhookUrl: "", webhookSecret: "" });
+  const [salesforceConfig, setSalesforceConfig] = useState({ enabled: false, webhookUrl: "", webhookSecret: "" });
+  const [zohoConfig, setZohoConfig] = useState({ enabled: false, webhookUrl: "", webhookSecret: "" });
   const [settingsLoaded, setSettingsLoaded] = useState(false);
   const [plan, setPlan] = useState<string>("free");
   const [maxSessions, setMaxSessions] = useState<string>("");
@@ -91,6 +94,9 @@ export default function SettingsPage() {
       if (cancelled || !res.ok) return;
       setWebhookUrl(typeof j.callCompletedWebhookUrl === "string" ? j.callCompletedWebhookUrl : "");
       setCrmWebhookUrl(typeof j.crmWebhookUrl === "string" ? j.crmWebhookUrl : "");
+      if (j.hubspotConfig) setHubspotConfig(j.hubspotConfig);
+      if (j.salesforceConfig) setSalesforceConfig(j.salesforceConfig);
+      if (j.zohoConfig) setZohoConfig(j.zohoConfig);
       if (typeof j.plan === "string") setPlan(j.plan);
       else if (j.plan === null) setPlan("legacy");
       setMaxSessions(j.maxVoiceSessionsPerDay != null ? String(j.maxVoiceSessionsPerDay) : "");
@@ -144,6 +150,9 @@ export default function SettingsPage() {
     const body: Record<string, unknown> = {
       callCompletedWebhookUrl: webhookUrl.trim() || null,
       crmWebhookUrl: crmWebhookUrl.trim() || null,
+      hubspotConfig,
+      salesforceConfig,
+      zohoConfig,
     };
     if (webhookSecret.trim()) body.callCompletedWebhookSecret = webhookSecret.trim();
     if (crmWebhookSecret.trim()) body.crmWebhookSecret = crmWebhookSecret.trim();
@@ -391,7 +400,7 @@ export default function SettingsPage() {
             <CardTitle>Plan & voice quotas</CardTitle>
             <CardDescription>
               <code className="text-xs">free</code> workspaces get a daily cap (Redis +{" "}
-              <code className="text-xs">SWARAI_DEFAULT_FREE_VOICE_SESSIONS_PER_DAY</code> unless you set an explicit max
+              <code className="text-xs">SWARSALES_DEFAULT_FREE_VOICE_SESSIONS_PER_DAY</code> unless you set an explicit max
               below). Requires <code className="text-xs">REDIS_URL</code> for enforcement.
             </CardDescription>
           </CardHeader>
@@ -431,7 +440,7 @@ export default function SettingsPage() {
             <CardTitle>Billing</CardTitle>
             <CardDescription>
               Stripe subscriptions, Razorpay orders, and PayU hosted checkout (India). Razorpay dashboard orders attach{" "}
-              <code className="text-xs">swarai_org_id</code> for webhooks; PayU uses server-side txn registry + reverse hash on
+              <code className="text-xs">swarsales_org_id</code> for webhooks; PayU uses server-side txn registry + reverse hash on
               return.
             </CardDescription>
           </CardHeader>
@@ -553,12 +562,134 @@ export default function SettingsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>CRM / webhooks</CardTitle>
+            <CardTitle>Enterprise CRM Integrations</CardTitle>
+            <CardDescription>
+              Directly sync call transcripts, summaries, and ROI data to your CRM.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* HubSpot */}
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold">HubSpot</span>
+                  <Badge variant={hubspotConfig.enabled ? "primary" : "secondary"}>{hubspotConfig.enabled ? "Enabled" : "Disabled"}</Badge>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setHubspotConfig({ ...hubspotConfig, enabled: !hubspotConfig.enabled })}
+                >
+                  {hubspotConfig.enabled ? "Disable" : "Enable"}
+                </Button>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <Label>Webhook URL</Label>
+                  <Input
+                    placeholder="https://api.hubspot.com/..."
+                    value={hubspotConfig.webhookUrl}
+                    onChange={(e) => setHubspotConfig({ ...hubspotConfig, webhookUrl: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label>Signing Secret</Label>
+                  <Input
+                    type="password"
+                    placeholder="Optional"
+                    value={hubspotConfig.webhookSecret}
+                    onChange={(e) => setHubspotConfig({ ...hubspotConfig, webhookSecret: e.target.value })}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Salesforce */}
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold">Salesforce</span>
+                  <Badge variant={salesforceConfig.enabled ? "primary" : "secondary"}>{salesforceConfig.enabled ? "Enabled" : "Disabled"}</Badge>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setSalesforceConfig({ ...salesforceConfig, enabled: !salesforceConfig.enabled })}
+                >
+                  {salesforceConfig.enabled ? "Disable" : "Enable"}
+                </Button>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <Label>Webhook URL</Label>
+                  <Input
+                    placeholder="https://salesforce.com/..."
+                    value={salesforceConfig.webhookUrl}
+                    onChange={(e) => setSalesforceConfig({ ...salesforceConfig, webhookUrl: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label>Signing Secret</Label>
+                  <Input
+                    type="password"
+                    placeholder="Optional"
+                    value={salesforceConfig.webhookSecret}
+                    onChange={(e) => setSalesforceConfig({ ...salesforceConfig, webhookSecret: e.target.value })}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Zoho */}
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold">Zoho CRM</span>
+                  <Badge variant={zohoConfig.enabled ? "primary" : "secondary"}>{zohoConfig.enabled ? "Enabled" : "Disabled"}</Badge>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setZohoConfig({ ...zohoConfig, enabled: !zohoConfig.enabled })}
+                >
+                  {zohoConfig.enabled ? "Disable" : "Enable"}
+                </Button>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <Label>Webhook URL</Label>
+                  <Input
+                    placeholder="https://hooks.zoho.com/..."
+                    value={zohoConfig.webhookUrl}
+                    onChange={(e) => setZohoConfig({ ...zohoConfig, webhookUrl: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label>Signing Secret</Label>
+                  <Input
+                    type="password"
+                    placeholder="Optional"
+                    value={zohoConfig.webhookSecret}
+                    onChange={(e) => setZohoConfig({ ...zohoConfig, webhookSecret: e.target.value })}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Button type="button" variant="primary" onClick={() => void saveWebhook()} disabled={!settingsLoaded} className="w-full">
+              Save CRM Configurations
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>General Webhooks</CardTitle>
             <CardDescription>
               POST JSON on each completed call (signed with HMAC SHA256 when a secret is set). Optionally mirror the same
               payload to a second CRM URL. Org secrets override env fallbacks{" "}
-              <code className="text-xs">SWARAI_WEBHOOK_SIGNING_SECRET</code> /{" "}
-              <code className="text-xs">SWARAI_CRM_WEBHOOK_SECRET</code>.
+              <code className="text-xs">SWARSALES_WEBHOOK_SIGNING_SECRET</code> /{" "}
+              <code className="text-xs">SWARSALES_CRM_WEBHOOK_SECRET</code>.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -566,7 +697,7 @@ export default function SettingsPage() {
               <Label htmlFor="wh-url">Call completed webhook URL</Label>
               <Input
                 id="wh-url"
-                placeholder="https://your-crm.example/hooks/swarai"
+                placeholder="https://your-crm.example/hooks/swarsales"
                 value={webhookUrl}
                 onChange={(e) => setWebhookUrl(e.target.value)}
                 disabled={!settingsLoaded}

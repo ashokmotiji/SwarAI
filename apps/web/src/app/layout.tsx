@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SwarAI — Voice agents for India and the world",
+  title: "SwarSales AI — Voice agents for India and the world",
   description:
     "LiveKit + Sarvam-powered voice AI: Indian languages, telephony, and a polished dashboard.",
 };

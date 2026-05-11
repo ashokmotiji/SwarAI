@@ -1,4 +1,4 @@
-import { compileAgentFlowGraph } from "@swarai/agent-builder";
+import { compileAgentFlowGraph } from "@swarsales/agent-builder";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export async function systemPromptWithFlow(

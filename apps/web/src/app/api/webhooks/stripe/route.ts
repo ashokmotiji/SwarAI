@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         if (session.mode !== "subscription") break;
-        let orgId = session.metadata?.swarai_org_id ?? session.client_reference_id ?? null;
+        let orgId = session.metadata?.swarsales_org_id ?? session.client_reference_id ?? null;
         const custId = typeof session.customer === "string" ? session.customer : null;
         if (!orgId && custId) {
           const c = await stripe.customers.retrieve(custId);
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
       }
       case "customer.subscription.deleted": {
         const sub = event.data.object as Stripe.Subscription;
-        const metaOrg = sub.metadata?.swarai_org_id;
+        const metaOrg = sub.metadata?.swarsales_org_id;
         if (metaOrg && /^[0-9a-f-]{36}$/i.test(metaOrg)) {
           await mergePlan(metaOrg, "free", { subscriptionId: sub.id, status: sub.status });
           break;

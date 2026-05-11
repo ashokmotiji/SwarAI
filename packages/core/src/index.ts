@@ -68,7 +68,7 @@ export const LicenseTierSchema = z.enum(["community", "pro", "enterprise"]);
 export type LicenseTier = z.infer<typeof LicenseTierSchema>;
 
 export function getLicenseTierFromEnv(env: Record<string, string | undefined>): LicenseTier {
-  const raw = env.SWARAI_LICENSE_TIER;
+  const raw = env.SWARSALES_LICENSE_TIER;
   const parsed = LicenseTierSchema.safeParse(raw);
   return parsed.success ? parsed.data : "community";
 }

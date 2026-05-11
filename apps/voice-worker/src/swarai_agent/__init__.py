@@ -1,1 +1,0 @@
-"""SwarAI LiveKit voice worker."""

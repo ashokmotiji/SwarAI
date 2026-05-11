@@ -50,7 +50,7 @@ export default function HelpPage() {
         <Card>
           <CardHeader>
             <CardTitle>In-app guidance</CardTitle>
-            <CardDescription>Primary integration paths for SwarAI.</CardDescription>
+            <CardDescription>Primary integration paths for SwarSales AI.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <ol className="list-decimal space-y-2 pl-5">
@@ -70,7 +70,7 @@ export default function HelpPage() {
                 query for inbound. On each agent, set <strong>Inbound phone number (E.164)</strong> to the DID for
                 one-agent-per-number routing.
               </li>
-              <li>Run `pnpm dev` for the web app and `swarai-agent dev` for the worker.</li>
+              <li>Run `pnpm dev` for the web app and `swarsales-agent dev` for the worker.</li>
               <li>
                 Review <Link href="/dashboard/compliance">Compliance &amp; DPDP</Link> before production data processing.
               </li>

@@ -13,7 +13,7 @@ export async function GET() {
   const since = new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString();
   const { data: calls, error } = await supabase
     .from("calls")
-    .select("id, status, channel, started_at, ended_at, sentiment_score")
+    .select("id, status, channel, started_at, ended_at, sentiment_score, order_value, duration_seconds")
     .eq("org_id", orgId)
     .gte("started_at", since);
 
@@ -37,6 +37,10 @@ export async function GET() {
       ? completed.reduce((a, c) => a + (Number(c.sentiment_score) || 0), 0) / completed.length
       : null;
 
+  const totalOrderValue = list.reduce((a, c) => a + (Number(c.order_value) || 0), 0);
+  const conversionRate = list.length > 0 ? (list.filter((c) => (Number(c.order_value) || 0) > 0).length / list.length) * 100 : 0;
+  const totalDuration = list.reduce((a, c) => a + (Number(c.duration_seconds) || 0), 0);
+
   return NextResponse.json({
     windowDays: 30,
     totalCalls: list.length,
@@ -44,6 +48,9 @@ export async function GET() {
     byChannel: groupBy(list, (c) => c.channel),
     latencyMs: { p50, p95 },
     sentimentAvg,
+    totalOrderValue,
+    conversionRate,
+    totalDuration,
   });
 }
 

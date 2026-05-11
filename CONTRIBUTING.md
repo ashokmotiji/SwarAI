@@ -1,6 +1,6 @@
-# Contributing to SwarAI
+# Contributing to SwarSales AI
 
-Thank you for helping improve SwarAI. This document explains how we work and what we expect from contributions.
+Thank you for helping improve SwarSales AI. This document explains how we work and what we expect from contributions.
 
 ## Code of conduct
 
@@ -8,7 +8,7 @@ All contributors must follow the [Code of Conduct](./CODE_OF_CONDUCT.md). Be res
 
 ## How to contribute
 
-1. **Issues first (usually)** — For bugs or feature ideas, open an [issue](https://github.com/ashokmotiji/SwarAI/issues) so we can align before you invest heavy time. Small fixes (typos, obvious bugs) can go straight to a PR.
+1. **Issues first (usually)** — For bugs or feature ideas, open an [issue](https://github.com/ashokmotiji/SwarSales-AI/issues) so we can align before you invest heavy time. Small fixes (typos, obvious bugs) can go straight to a PR.
 2. **Fork & branch** — Create a branch from `main` with a short descriptive name, e.g. `fix/health-redis-timeout`.
 3. **Keep PRs focused** — One logical change per pull request makes review and rollback easier.
 4. **Describe the PR** — What changed, why, and how to verify (commands, screenshots for UI).
@@ -18,7 +18,7 @@ All contributors must follow the [Code of Conduct](./CODE_OF_CONDUCT.md). Be res
 - **Node:** 20+
 - **Package manager:** `pnpm` 9+ (see `packageManager` in root `package.json`)
 - **Install:** `pnpm install`
-- **Web app:** `pnpm --filter @swarai/web dev`
+- **Web app:** `pnpm --filter @swarsales/web dev`
 - **Lint:** `pnpm lint`
 - **Build:** `pnpm build`
 - **Tests:** `pnpm test` (placeholder suite today; extend with real tests in `apps/web` or packages as we grow)
@@ -44,4 +44,4 @@ Please do **not** open public issues for security vulnerabilities. See [SECURITY
 
 ## Questions
 
-Open a [GitHub Discussion](https://github.com/ashokmotiji/SwarAI/discussions) if enabled, or an issue with the `question` label, and maintainers or the community can help.
+Open a [GitHub Discussion](https://github.com/ashokmotiji/SwarSales-AI/discussions) if enabled, or an issue with the `question` label, and maintainers or the community can help.

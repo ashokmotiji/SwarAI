@@ -29,7 +29,7 @@ async function chatReply(systemPrompt: string, userText: string): Promise<string
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: process.env.SWARAI_WHATSAPP_LLM_MODEL ?? "gpt-4o-mini",
+      model: process.env.SWARSALES_WHATSAPP_LLM_MODEL ?? "gpt-4o-mini",
       temperature: 0.4,
       messages: [
         { role: "system", content: systemPrompt + "\n\nKeep replies short for WhatsApp (under 900 chars). Be helpful and India-aware when relevant." },

@@ -35,7 +35,7 @@ export function EmbedVoiceClient({ agentId }: { agentId: string }) {
   return (
     <Card className="mx-auto max-w-lg border-border">
       <CardHeader>
-        <CardTitle>SwarAI voice</CardTitle>
+        <CardTitle>SwarSales AI voice</CardTitle>
         <CardDescription>Embedded session for agent {agentId.slice(0, 8)}…</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

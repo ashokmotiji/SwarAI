@@ -10,8 +10,8 @@ const BodySchema = z.object({
 });
 
 export async function POST(req: Request) {
-  const secret = process.env.SWARAI_INTERNAL_WEBHOOK_SECRET;
-  if (!secret || req.headers.get("x-swarai-internal") !== secret) {
+  const secret = process.env.SWARSALES_INTERNAL_WEBHOOK_SECRET;
+  if (!secret || req.headers.get("x-swarsales-internal") !== secret) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

@@ -25,12 +25,12 @@ function entitiesFromPayload(payload: unknown): JsonRecord[] {
   return out;
 }
 
-/** Find SwarAI org id from Razorpay notes on nested payload entities. */
+/** Find SwarSales AI org id from Razorpay notes on nested payload entities. */
 export function resolveOrgIdFromRazorpayBody(body: JsonRecord): string | null {
   const payload = body.payload;
   for (const ent of entitiesFromPayload(payload)) {
     const notes = parseNotes(ent);
-    const id = notes.swarai_org_id ?? notes.swai_org_id;
+    const id = notes.swarsales_org_id ?? notes.swai_org_id;
     if (id && /^[0-9a-f-]{36}$/i.test(id)) return id;
   }
   return null;
@@ -80,7 +80,7 @@ async function writeOrgBilling(orgId: string, next: { settings: JsonRecord; razo
   await supabase.from("organizations").update(row).eq("id", orgId);
 }
 
-/** Apply verified Razorpay webhook: idempotent row + org billing hints when `swarai_org_id` is present in notes. */
+/** Apply verified Razorpay webhook: idempotent row + org billing hints when `swarsales_org_id` is present in notes. */
 export async function applyRazorpayWebhook(rawBody: string, body: JsonRecord): Promise<{ duplicate: boolean }> {
   const eventType = typeof body.event === "string" ? body.event : "unknown";
   const eventId = stableEventId(body, rawBody);
@@ -90,9 +90,9 @@ export async function applyRazorpayWebhook(rawBody: string, body: JsonRecord): P
   const payment = firstEntityOfKind(payload, "payment");
   const subscription = firstEntityOfKind(payload, "subscription");
   const notesFromPayment = payment ? parseNotes(payment) : {};
-  const planIntent = notesFromPayment.swarai_plan ?? notesFromPayment.swai_plan;
+  const planIntent = notesFromPayment.swarsales_plan ?? notesFromPayment.swai_plan;
 
-  const proMin = parseInt(process.env.SWARAI_RAZORPAY_PRO_MIN_PAISE ?? "0", 10);
+  const proMin = parseInt(process.env.SWARSALES_RAZORPAY_PRO_MIN_PAISE ?? "0", 10);
   const amountPaise =
     typeof payment?.amount === "number"
       ? payment.amount

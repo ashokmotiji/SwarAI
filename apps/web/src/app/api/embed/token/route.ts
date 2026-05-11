@@ -62,7 +62,7 @@ export async function POST(req: Request) {
   }
 
   const callId = randomUUID();
-  const roomName = `swarai-embed-${callId}`;
+  const roomName = `swarsales-embed-${callId}`;
   const fullPrompt = await systemPromptWithFlow(supabase, agent.id, agent.system_prompt);
   const metadata = {
     callId,

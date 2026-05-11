@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logger = logging.getLogger("swarai.agent")
+logger = logging.getLogger("swarsales.agent")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 
 LANG_TO_TTS: dict[str, str] = {
@@ -64,8 +64,8 @@ def _parse_metadata(metadata: str | None) -> RoomAgentConfig:
     if not metadata:
         return RoomAgentConfig(
             system_prompt=os.getenv(
-                "SWARAI_DEFAULT_SYSTEM_PROMPT",
-                "You are SwarAI, a helpful voice assistant optimized for Indian users. "
+                "SWARSALES_DEFAULT_SYSTEM_PROMPT",
+                "You are SwarSales AI, a helpful voice assistant optimized for Indian users. "
                 "Be concise, polite, and respectful. Support Hinglish when users mix Hindi and English.",
             ),
             speaker=os.getenv("SARVAM_DEFAULT_SPEAKER", "anushka"),
@@ -154,7 +154,7 @@ def build_stt_llm_tts(cfg: RoomAgentConfig):  # noqa: PLR0911
 
         return (
             openai.STT(language=_openai_stt_lang(lang), model="gpt-4o-mini-transcribe"),
-            openai.LLM(model=os.getenv("SWARAI_OPENAI_LLM_MODEL", "gpt-4.1-mini")),
+            openai.LLM(model=os.getenv("SWARSALES_OPENAI_LLM_MODEL", "gpt-4o-mini")),
             openai.TTS(model="gpt-4o-mini-tts", voice=speaker if len(speaker) < 40 else "alloy"),
         )
 
@@ -163,7 +163,7 @@ def build_stt_llm_tts(cfg: RoomAgentConfig):  # noqa: PLR0911
 
         return (
             deepgram.STT(model="nova-3", language="multi", detect_language=True),
-            openai.LLM(model=os.getenv("SWARAI_OPENAI_LLM_MODEL", "gpt-4.1-mini")),
+            openai.LLM(model=os.getenv("SWARSALES_OPENAI_LLM_MODEL", "gpt-4o-mini")),
             elevenlabs.TTS(voice_id=speaker, model="eleven_turbo_v2_5"),
         )
 
@@ -181,10 +181,10 @@ def build_stt_llm_tts(cfg: RoomAgentConfig):  # noqa: PLR0911
 
 
 async def _post_transcript(call_id: str | None, room_name: str, history_dict: dict[str, Any]) -> None:
-    base = os.getenv("SWARAI_APP_URL", "").rstrip("/")
-    secret = os.getenv("SWARAI_INTERNAL_WEBHOOK_SECRET", "")
+    base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+    secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
     if not base or not secret or not call_id:
-        logger.info("Skip transcript POST (missing SWARAI_APP_URL, secret, or call_id)")
+        logger.info("Skip transcript POST (missing SWARSALES_APP_URL, secret, or call_id)")
         return
     url = f"{base}/api/internal/call-transcript"
     try:
@@ -192,7 +192,7 @@ async def _post_transcript(call_id: str | None, room_name: str, history_dict: di
             r = await client.post(
                 url,
                 json={"callId": call_id, "roomName": room_name, "history": history_dict},
-                headers={"x-swarai-internal": secret},
+                headers={"x-swarsales-internal": secret},
             )
             r.raise_for_status()
     except Exception:
@@ -266,8 +266,8 @@ async def entrypoint(ctx: Any) -> None:
     async def search_knowledge(query: str) -> str:
         """Search the org's uploaded knowledge (RAG) for relevant snippets."""
         aid = cfg_state["cfg"].agent_id
-        base = os.getenv("SWARAI_APP_URL", "").rstrip("/")
-        secret = os.getenv("SWARAI_INTERNAL_WEBHOOK_SECRET", "")
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
         if not aid or not base or not secret:
             return "Knowledge search is not configured for this call."
         try:
@@ -275,7 +275,7 @@ async def entrypoint(ctx: Any) -> None:
                 r = await client.post(
                     f"{base}/api/internal/knowledge-search",
                     json={"agentId": aid, "query": query.strip()[:2000], "matchCount": 8},
-                    headers={"x-swarai-internal": secret},
+                    headers={"x-swarsales-internal": secret},
                 )
                 r.raise_for_status()
                 data = r.json()
@@ -318,10 +318,10 @@ async def entrypoint(ctx: Any) -> None:
     @function_tool
     async def book_google_calendar_event(title: str, start_iso: str, end_iso: str) -> str:
         """Create a real Google Calendar event. Use RFC3339 ISO datetimes in Asia/Kolkata (e.g. 2026-05-10T15:00:00+05:30)."""
-        base = os.getenv("SWARAI_APP_URL", "").rstrip("/")
-        secret = os.getenv("SWARAI_INTERNAL_WEBHOOK_SECRET", "")
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
         if not base or not secret:
-            return "Calendar bridge not configured (SWARAI_APP_URL / internal secret)."
+            return "Calendar bridge not configured (SWARSALES_APP_URL / internal secret)."
         try:
             async with httpx.AsyncClient(timeout=20.0) as client:
                 r = await client.post(
@@ -330,9 +330,9 @@ async def entrypoint(ctx: Any) -> None:
                         "summary": title[:500],
                         "startIso": start_iso[:80],
                         "endIso": end_iso[:80],
-                        "description": "Created by SwarAI voice agent.",
+                        "description": "Created by SwarSales AI voice agent.",
                     },
-                    headers={"x-swarai-internal": secret},
+                    headers={"x-swarsales-internal": secret},
                 )
                 data = r.json() if r.content else {}
                 if r.status_code == 200 and data.get("ok"):
@@ -342,6 +342,59 @@ async def entrypoint(ctx: Any) -> None:
         except Exception:
             logger.exception("calendar tool failed")
             return "Calendar request failed."
+
+    @function_tool
+    async def get_customer_history(query: str) -> str:
+        """Retrieve recent customer interactions, orders, and preferences from CRM context."""
+        aid = cfg_state["cfg"].agent_id
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Customer history is not available for this call session."
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                # First get call info to find org_id and customer_phone
+                # In production, we'd pass these in room metadata for speed.
+                # For now, we use internal APIs.
+                r = await client.post(
+                    f"{base}/api/internal/customer-context",
+                    json={"callId": cid},
+                    headers={"x-swarsales-internal": secret},
+                )
+                if r.status_code != 200:
+                    return "Could not retrieve customer context."
+                data = r.json()
+                ctx = data.get("context") or {}
+                if not ctx:
+                    return "No previous customer history found. Treat as a new customer."
+                return f"Customer Context: {json.dumps(ctx)}"
+        except Exception:
+            logger.exception("get_customer_history failed")
+            return "Interaction history temporarily unavailable."
+
+    @function_tool
+    async def send_whatsapp_fallback(message: str) -> str:
+        """Send a follow-up WhatsApp message to the customer (e.g., quotes, links, confirmation)."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "WhatsApp fallback is not configured for this call."
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                r = await client.post(
+                    f"{base}/api/internal/fallback-message",
+                    json={"callId": cid, "message": message, "channel": "whatsapp"},
+                    headers={"x-swarsales-internal": secret},
+                )
+                if r.status_code == 200:
+                    return "WhatsApp message sent successfully."
+                return f"Failed to send WhatsApp: {r.text[:200]}"
+        except Exception:
+            logger.exception("send_whatsapp_fallback failed")
+            return "WhatsApp service temporarily unavailable."
 
     @function_tool
     async def request_human_handoff(reason: str) -> str:
@@ -363,6 +416,8 @@ async def entrypoint(ctx: Any) -> None:
 
     tools = [
         search_knowledge,
+        get_customer_history,
+        send_whatsapp_fallback,
         get_weather_india,
         maps_link,
         upi_collection_guidance,
@@ -397,8 +452,17 @@ async def entrypoint(ctx: Any) -> None:
 
     room.on("room_metadata_changed", _on_room_metadata_changed)
 
-    vad = silero.VAD.load()
-    session = AgentSession(vad=vad, allow_interruptions=True)
+    vad = silero.VAD.load(
+        min_speech_duration=0.1,
+        min_silence_duration=0.3,
+        padding_duration=0.1,
+    )
+    session = AgentSession(
+        vad=vad,
+        allow_interruptions=True,
+        interrupt_speech_duration=0.5,
+        interrupt_min_words=0,
+    )
     session_ref["s"] = session
 
     async def _on_shutdown(_reason: str) -> None:
@@ -412,7 +476,7 @@ async def entrypoint(ctx: Any) -> None:
     ctx.add_shutdown_callback(_on_shutdown)
 
     logger.info(
-        "SwarAI agent start room=%s call_id=%s agent_id=%s stack=%s",
+        "SwarSales AI agent start room=%s call_id=%s agent_id=%s stack=%s",
         room.name,
         cfg_state["cfg"].call_id,
         cfg_state["cfg"].agent_id,

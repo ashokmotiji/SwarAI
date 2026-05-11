@@ -7,7 +7,7 @@ import { ensurePersonalOrg } from "@/lib/org";
 const BodySchema = z.object({
   amountPaise: z.number().int().positive().max(10_000_000),
   receipt: z.string().max(40).optional(),
-  /** When `pro`, payment.captured upgrades org plan if webhook notes carry `swarai_org_id`. */
+  /** When `pro`, payment.captured upgrades org plan if webhook notes carry `swarsales_org_id`. */
   intent: z.enum(["demo", "pro"]).optional(),
 });
 
@@ -32,13 +32,13 @@ export async function POST(req: Request) {
   const orgId = await ensurePersonalOrg(userId, user?.primaryEmailAddress?.emailAddress ?? null);
 
   const rzp = new Razorpay({ key_id: key, key_secret: secret });
-  const notes: Record<string, string> = { swarai_org_id: orgId };
-  if (body.intent === "pro") notes.swarai_plan = "pro";
+  const notes: Record<string, string> = { swarsales_org_id: orgId };
+  if (body.intent === "pro") notes.swarsales_plan = "pro";
 
   const order = await rzp.orders.create({
     amount: body.amountPaise,
     currency: "INR",
-    receipt: body.receipt ?? `swarai_${userId.slice(0, 8)}`,
+    receipt: body.receipt ?? `swarsales_${userId.slice(0, 8)}`,
     payment_capture: true,
     notes,
   });

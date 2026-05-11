@@ -1,7 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { AgentFlowGraphSchema } from "@swarai/agent-builder";
+import { AgentFlowGraphSchema } from "@swarsales/agent-builder";
 import { ensurePersonalOrg } from "@/lib/org";
 import { createServiceClient } from "@/lib/supabase/service";
 import { rateLimitResponse } from "@/lib/rate-limit";

@@ -18,8 +18,8 @@ env:
   NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ci-placeholder
   SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ci-placeholder
   NEXT_PUBLIC_APP_URL: http://localhost:3000
-  SWARAI_APP_URL: http://localhost:3000
-  SWARAI_INTERNAL_WEBHOOK_SECRET: ci-internal-webhook-placeholder
+  SWARSALES_APP_URL: http://localhost:3000
+  SWARSALES_INTERNAL_WEBHOOK_SECRET: ci-internal-webhook-placeholder
 
 jobs:
   lint:

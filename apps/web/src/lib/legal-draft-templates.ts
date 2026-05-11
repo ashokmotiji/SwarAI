@@ -46,7 +46,7 @@ export const TERMS_OF_SERVICE_TEMPLATE = `[COMPANY LEGAL NAME] — Terms of Serv
 Last updated: [DATE]
 
 1. Service
-   SwarAI-style voice AI platform: dashboard, agents, telephony integrations, and optional channels you enable.
+   SwarSales AI-style voice AI platform: dashboard, agents, telephony integrations, and optional channels you enable.
 
 2. Accounts
    You are responsible for credentials and for activity under your workspace.

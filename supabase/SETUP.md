@@ -3,7 +3,7 @@
 ## 1 — Create the Supabase project (cloud)
 
 1. Open [https://supabase.com/dashboard](https://supabase.com/dashboard) and sign in.
-2. **New project** → choose organization, name (e.g. `swarai`), **Region** (Mumbai `ap-south-1` if you want India proximity).
+2. **New project** → choose organization, name (e.g. `swarsales`), **Region** (Mumbai `ap-south-1` if you want India proximity).
 3. Set a database password and wait until the project is **healthy**.
 4. In **Project Settings → API**, copy:
    - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
@@ -15,7 +15,7 @@
 **Option A — Supabase CLI (recommended)**
 
 ```bash
-cd /path/to/SwarAI
+cd /path/to/SwarSales AI
 pnpm run supabase:login    # browser auth
 pnpm run supabase:link     # paste project ref from Dashboard → Settings → General
 pnpm run supabase:push     # runs all files in supabase/migrations/ in order
@@ -34,7 +34,7 @@ pnpm run supabase:push     # runs all files in supabase/migrations/ in order
 
 ### Do you need “Step B” (Clerk + Supabase auth)?
 
-**For this SwarAI codebase: usually no.** The Next.js API routes check **Clerk** first, then talk to Postgres with the **Supabase service role** key. That bypasses Row Level Security (RLS) on the server, so the dashboard can work **without** linking Clerk’s tokens to Supabase.
+**For this SwarSales AI codebase: usually no.** The Next.js API routes check **Clerk** first, then talk to Postgres with the **Supabase service role** key. That bypasses Row Level Security (RLS) on the server, so the dashboard can work **without** linking Clerk’s tokens to Supabase.
 
 Add **Step B** only if you want either of these later:
 

@@ -12,6 +12,7 @@ import { randomUUID } from "crypto";
 const BodySchema = z.object({
   agentId: z.string().uuid().optional(),
   displayName: z.string().max(120).optional(),
+  customerPhone: z.string().max(20).optional(),
 });
 
 export async function POST(req: Request) {
@@ -75,11 +76,11 @@ export async function POST(req: Request) {
   }
 
   const callId = randomUUID();
-  const roomName = `swarai-${callId}`;
+  const roomName = `swarsales-${callId}`;
 
   const basePrompt =
     agent?.system_prompt ??
-    "You are SwarAI, a helpful multilingual voice assistant for Indian users. Be concise and respectful.";
+    "You are SwarSales AI, a helpful multilingual voice assistant for Indian users. Be concise and respectful.";
   const fullPrompt = await systemPromptWithFlow(supabase, agent?.id, basePrompt);
 
   const metadata = {
@@ -102,6 +103,7 @@ export async function POST(req: Request) {
       id: callId,
       org_id: orgId,
       agent_id: agent?.id ?? null,
+      customer_phone: body.customerPhone ?? null,
       channel: "web",
       status: "active",
       livekit_room: roomName,

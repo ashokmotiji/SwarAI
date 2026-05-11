@@ -69,7 +69,7 @@ export async function POST(req: Request) {
     return new NextResponse(xml, { headers: { "Content-Type": "text/xml" } });
   }
 
-  const say = `<Say>Connecting to SwarAI. Please hold.</Say><Dial><Sip username="${escapeXml(
+  const say = `<Say>Connecting to SwarSales AI. Please hold.</Say><Dial><Sip username="${escapeXml(
     process.env.LIVEKIT_SIP_USERNAME ?? "",
   )}" password="${escapeXml(process.env.LIVEKIT_SIP_PASSWORD ?? "")}">${escapeXml(sipUri)}</Sip></Dial>`;
 

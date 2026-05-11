@@ -37,5 +37,5 @@ services:
       - redis
       - web
     environment:
-      - SWARAI_APP_URL=http://web:3000
+      - SWARSALES_APP_URL=http://web:3000
       - REDIS_URL=redis://redis:6379

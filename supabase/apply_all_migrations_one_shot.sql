@@ -1,8 +1,8 @@
--- SwarAI — ONE-SHOT: paste this entire file into Supabase Dashboard → SQL Editor → Run.
+-- SwarSales AI — ONE-SHOT: paste this entire file into Supabase Dashboard → SQL Editor → Run.
 -- Equivalent to running all files in supabase/migrations/ in sorted order.
 -- After success, run verify_schema.sql.
 
--- SwarAI — schema, pgvector, RLS (Clerk `sub` in JWT when using Supabase third-party auth)
+-- SwarSales AI — schema, pgvector, RLS (Clerk `sub` in JWT when using Supabase third-party auth)
 create extension if not exists "pgcrypto";
 create extension if not exists "vector";
 

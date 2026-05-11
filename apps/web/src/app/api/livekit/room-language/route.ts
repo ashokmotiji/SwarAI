@@ -5,7 +5,7 @@ import { ensurePersonalOrg } from "@/lib/org";
 import { createServiceClient } from "@/lib/supabase/service";
 import { mergeRoomMetadata } from "@/lib/livekit";
 import { rateLimitResponse } from "@/lib/rate-limit";
-import { INDIAN_LANGUAGES } from "@swarai/core";
+import { INDIAN_LANGUAGES } from "@swarsales/core";
 
 const LANGS = [...INDIAN_LANGUAGES] as [string, ...string[]];
 

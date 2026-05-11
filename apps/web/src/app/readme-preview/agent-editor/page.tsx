@@ -38,7 +38,7 @@ export default function ReadmePreviewAgentEditorPage() {
                 id="rp-prompt"
                 readOnly
                 className="min-h-[140px] resize-none"
-                value="You are SwarAI for Acme India. Greet in Hindi or English; keep answers short. Confirm bookings and offer escalation to a human when unsure."
+                value="You are SwarSales AI for Acme India. Greet in Hindi or English; keep answers short. Confirm bookings and offer escalation to a human when unsure."
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

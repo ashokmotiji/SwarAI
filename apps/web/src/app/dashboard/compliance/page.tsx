@@ -18,7 +18,7 @@ const checklist = [
   },
   {
     title: "Security",
-    body: "Rotate `SWARAI_INTERNAL_WEBHOOK_SECRET`, Razorpay/Stripe webhook secrets, and API keys on a schedule; restrict Supabase service role to server only.",
+    body: "Rotate `SWARSALES_INTERNAL_WEBHOOK_SECRET`, Razorpay/Stripe webhook secrets, and API keys on a schedule; restrict Supabase service role to server only.",
   },
   {
     title: "Access & audit",
@@ -40,7 +40,7 @@ export default function CompliancePage() {
           <CardHeader>
             <CardTitle>India / DPDP-oriented checklist</CardTitle>
             <CardDescription>
-              SwarAI stores schema defaults such as <code className="text-xs">data_region</code>. Legal compliance still
+              SwarSales AI stores schema defaults such as <code className="text-xs">data_region</code>. Legal compliance still
               depends on how you host, contract, and operate the product — use this as an internal pre-production review.
             </CardDescription>
           </CardHeader>

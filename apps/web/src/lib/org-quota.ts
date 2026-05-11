@@ -25,7 +25,7 @@ export function resolveVoiceSessionDailyLimit(settings: OrgSettings | null | und
   if (explicit != null) return explicit;
   const plan = settings?.plan;
   if (plan === "free") {
-    const env = process.env.SWARAI_DEFAULT_FREE_VOICE_SESSIONS_PER_DAY;
+    const env = process.env.SWARSALES_DEFAULT_FREE_VOICE_SESSIONS_PER_DAY;
     if (env) {
       const n = parseInt(env, 10);
       if (Number.isFinite(n) && n > 0) return Math.min(n, 1_000_000);
@@ -42,7 +42,7 @@ export async function tryConsumeVoiceSessionQuota(orgId: string, maxPerDay: numb
   if (!r) return true;
 
   const day = new Date().toISOString().slice(0, 10);
-  const key = `swarai:quota:voice:${orgId}:${day}`;
+  const key = `swarsales:quota:voice:${orgId}:${day}`;
   try {
     const n = await r.incr(key);
     if (n === 1) await r.expire(key, 172800);

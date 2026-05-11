@@ -45,7 +45,7 @@ export function AgentEditorForm({ agent }: { agent?: AgentRow }) {
   const [name, setName] = useState(agent?.name ?? "");
   const [prompt, setPrompt] = useState(
     agent?.system_prompt ??
-      "You are SwarAI, a professional voice agent for Indian customers. Keep replies short and clear.",
+      "You are SwarSales AI, a professional voice agent for Indian customers. Keep replies short and clear.",
   );
   const [defaultLanguage, setDefaultLanguage] = useState(agent?.default_language ?? "en");
   const [supported, setSupported] = useState<string[]>(agent?.supported_languages ?? ["en", "hi", "auto"]);
@@ -334,7 +334,7 @@ export function AgentEditorForm({ agent }: { agent?: AgentRow }) {
             <div>
               <Label>Voice clone sample (~30s)</Label>
               <p className="text-xs text-muted-foreground">
-                Stored in Supabase. With <code className="text-[10px]">ELEVENLABS_API_KEY</code> on the server, SwarAI
+                Stored in Supabase. With <code className="text-[10px]">ELEVENLABS_API_KEY</code> on the server, SwarSales AI
                 creates an IVC and stores the id on the agent.
               </p>
             </div>

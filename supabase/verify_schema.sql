@@ -1,4 +1,4 @@
--- SwarAI — run in Supabase SQL Editor after applying all files in supabase/migrations/ in filename order.
+-- SwarSales AI — run in Supabase SQL Editor after applying all files in supabase/migrations/ in filename order.
 -- Expect one row per name below if migrations are complete.
 
 SELECT tablename AS expected_table

@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for SwarAI
+about: Suggest an idea for SwarSales AI
 title: "[Feature] "
 labels: enhancement
 ---

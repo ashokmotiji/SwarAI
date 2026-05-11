@@ -17,7 +17,7 @@ export function ReadmePreviewSidebar() {
   return (
     <aside className="flex w-64 flex-col border-r border-border bg-card/60 p-4">
       <div className="mb-6 flex items-center gap-2 px-2">
-        <span className="text-lg font-semibold tracking-tight text-primary">SwarAI</span>
+        <span className="text-lg font-semibold tracking-tight text-primary">SwarSales AI</span>
         <span className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">beta</span>
       </div>
       <p className="mb-3 px-2 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
