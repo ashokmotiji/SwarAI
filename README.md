@@ -43,9 +43,9 @@ Replace these placeholders with real assets under [`screenshots/`](./screenshots
 
 | Dashboard | Call simulator |
 |:---:|:---:|
-| ![Dashboard](https://picsum.photos/seed/swarai-dashboard/640/400) | ![Call simulator](https://picsum.photos/seed/swarai-sim/640/400) |
+| ![Dashboard](https://placehold.co/640x400/0A2540/00D4FF?text=SwarAI+Dashboard&font=roboto) | ![Call simulator](https://placehold.co/640x400/0A2540/00D4FF?text=Live+Call+Simulator&font=roboto) |
 | **Agent editor** | **Settings & billing** |
-| ![Agent editor](https://picsum.photos/seed/swarai-agent/640/400) | ![Settings](https://picsum.photos/seed/swarai-settings/640/400) |
+| ![Agent editor](https://placehold.co/640x400/0A2540/00D4FF?text=Agent+Editor&font=roboto) | ![Settings](https://placehold.co/640x400/0A2540/00D4FF?text=Settings+%26+Billing&font=roboto) |
 
 **Local paths (optional):** `![Dashboard](./screenshots/dashboard.png)` · `![Simulator](./screenshots/simulator.png)` · `![Agent editor](./screenshots/agent-editor.png)` · `![Settings](./screenshots/settings.png)`
 
