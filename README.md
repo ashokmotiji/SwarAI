@@ -6,13 +6,13 @@
 
 **Next.js 15** · **LiveKit** · **Supabase** · **Sarvam-ready worker** · **Telephony & billing hooks**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![CI](https://github.com/ashokmotiji/SwarAI/actions/workflows/ci.yml/badge.svg)](https://github.com/ashokmotiji/SwarAI/actions/workflows/ci.yml)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](./docker/docker-compose.yml)
-[![pnpm](https://img.shields.io/badge/pnpm-9.15-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![LiveKit](https://img.shields.io/badge/LiveKit-Realtime-00A8E1?logo=livekit&logoColor=white)](https://livekit.io)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+![Next.js 15](https://img.shields.io/badge/Next.js_15-000000?logo=next.js&logoColor=white&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=for-the-badge)
+![pnpm](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white&style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
+![LiveKit](https://img.shields.io/badge/LiveKit-00AEEF?logo=livekit&logoColor=white&style=for-the-badge)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white&style=for-the-badge)
 
 [**Quick start**](#quick-start-development) · [**Contributing**](./CONTRIBUTING.md) · [**Security**](./SECURITY.md) · [**Code of Conduct**](./CODE_OF_CONDUCT.md)
 
