@@ -48,7 +48,7 @@ export default function ReadmePreviewSettingsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Call completed webhook URL</Label>
-              <Input readOnly value="https://api.example.com/hooks/swarai-call" />
+              <Input readOnly value="https://api.example.com/hooks/swarsales-call" />
             </div>
             <div className="space-y-2">
               <Label>Webhook signing secret</Label>

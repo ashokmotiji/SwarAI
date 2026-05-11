@@ -5,8 +5,11 @@ import { TopBar } from "@/components/dashboard/top-bar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function MarketplacePage() {
+  const [activeTab, setActiveTab] = useState("all");
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["marketplace"],
@@ -24,6 +27,9 @@ export default function MarketplacePage() {
       }[];
     },
   });
+
+  const categories = ["all", ...new Set(data?.map((t) => t.category) ?? [])];
+  const filteredTemplates = data?.filter((t) => activeTab === "all" || t.category === activeTab);
 
   const install = useMutation({
     mutationFn: async (templateId: string) => {
@@ -43,17 +49,28 @@ export default function MarketplacePage() {
     <>
       <TopBar title="Marketplace" />
       <div className="space-y-6 p-6">
-        <p className="text-sm text-muted-foreground">
-          Install curated Indian agent templates into your workspace (editable after install).
-        </p>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            Install curated SwarSales agent templates into your workspace.
+          </p>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList>
+              {categories.map((c) => (
+                <TabsTrigger key={c} value={c} className="capitalize">
+                  {c}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
         {isLoading ? <p className="text-sm text-muted-foreground">Loading…</p> : null}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {(data ?? []).map((t) => (
+          {(filteredTemplates ?? []).map((t) => (
             <Card key={t.id}>
               <CardHeader>
                 <div className="flex items-start justify-between gap-2">
                   <CardTitle className="text-base">{t.title}</CardTitle>
-                  {t.is_pro ? <Badge variant="secondary">Pro</Badge> : <Badge variant="primary">Free</Badge>}
+                  {t.is_pro ? <Badge variant="secondary">Pro</Badge> : <Badge variant="default">Free</Badge>}
                 </div>
                 <CardDescription>{t.description}</CardDescription>
               </CardHeader>

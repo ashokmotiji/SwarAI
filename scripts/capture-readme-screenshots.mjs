@@ -63,13 +63,13 @@ async function waitForServer(url, maxMs = 180000) {
 async function main() {
   await mkdir(shotDir, { recursive: true });
 
-  console.log("Building @swarai/web…");
-  await run("pnpm", ["--filter", "@swarai/web", "build"], root);
+  console.log("Building @swarsales/web…");
+  await run("pnpm", ["--filter", "@swarsales/web", "build"], root);
 
   console.log(`Starting Next.js on ${base}…`);
   const server = spawn(
     "pnpm",
-    ["--filter", "@swarai/web", "exec", "next", "start", "-H", "127.0.0.1", "-p", PORT],
+    ["--filter", "@swarsales/web", "exec", "next", "start", "-H", "127.0.0.1", "-p", PORT],
     {
       cwd: root,
       env,

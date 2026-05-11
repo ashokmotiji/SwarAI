@@ -59,7 +59,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   let elevenlabsVoiceId: string | null = null;
   if (process.env.ELEVENLABS_API_KEY) {
     const created = await createElevenLabsVoiceFromSample({
-      name: `swarai-${agentId.slice(0, 8)}`,
+      name: `swarsales-${agentId.slice(0, 8)}`,
       audioBuffer: buf,
       filename: safeName || `sample.${type.includes("wav") ? "wav" : "mp3"}`,
     });

@@ -1,5 +1,5 @@
 {
-  "name": "@swarai/core",
+  "name": "@swarsales/core",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -15,7 +15,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "lint": "eslint src/",
-    "test": "echo \"@swarai/core: no unit tests yet (CI placeholder)\""
+    "test": "echo \"@swarsales/core: no unit tests yet (CI placeholder)\""
   },
   "dependencies": {
     "zod": "^3.24.1"

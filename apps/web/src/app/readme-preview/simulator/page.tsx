@@ -28,7 +28,7 @@ export default function ReadmePreviewSimulatorPage() {
             </div>
             <div className="aspect-video w-full max-w-2xl overflow-hidden rounded-xl border border-border bg-gradient-to-br from-slate-950 via-slate-900 to-primary/20">
               <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center">
-                <p className="text-sm font-medium text-white/90">LiveKit room · swarai-demo</p>
+                <p className="text-sm font-medium text-white/90">LiveKit room · swarsales-demo</p>
                 <p className="text-xs text-white/60">Microphone connected · Agent speaking…</p>
                 <div className="mt-4 flex gap-2">
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80">Mute</span>

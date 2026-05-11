@@ -24,7 +24,7 @@ export async function rateLimitResponse(
   const r = getRedis();
   if (!r) return null;
 
-  const key = `swarai:rl:${routeKey}:${identifier}`;
+  const key = `swarsales:rl:${routeKey}:${identifier}`;
   try {
     const n = await r.incr(key);
     if (n === 1) await r.expire(key, windowSec);

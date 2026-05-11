@@ -33,14 +33,14 @@ export async function dispatchCallCompletedWebhook(
 
   const secret =
     (typeof settings?.callCompletedWebhookSecret === "string" && settings.callCompletedWebhookSecret) ||
-    process.env.SWARAI_WEBHOOK_SIGNING_SECRET ||
+    process.env.SWARSALES_WEBHOOK_SIGNING_SECRET ||
     "";
 
   const body = JSON.stringify(payload);
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (secret) {
     const sig = createHmac("sha256", secret).update(body).digest("hex");
-    headers["x-swarai-signature"] = `sha256=${sig}`;
+    headers["x-swarsales-signature"] = `sha256=${sig}`;
   }
 
   await fetch(url, {
@@ -54,11 +54,11 @@ export async function dispatchCallCompletedWebhook(
   if (crmUrl) {
     const crmSecret =
       (typeof settings?.crmWebhookSecret === "string" && settings.crmWebhookSecret) ||
-      process.env.SWARAI_CRM_WEBHOOK_SECRET ||
+      process.env.SWARSALES_CRM_WEBHOOK_SECRET ||
       "";
     const crmHeaders: Record<string, string> = { "Content-Type": "application/json" };
     if (crmSecret) {
-      crmHeaders["x-swarai-signature"] = `sha256=${createHmac("sha256", crmSecret).update(body).digest("hex")}`;
+      crmHeaders["x-swarsales-signature"] = `sha256=${createHmac("sha256", crmSecret).update(body).digest("hex")}`;
     }
     await fetch(crmUrl, {
       method: "POST",

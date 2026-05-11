@@ -1,7 +1,7 @@
 [project]
-name = "swarai-voice-worker"
+name = "swarsales-voice-worker"
 version = "0.1.0"
-description = "SwarAI LiveKit agent worker (Sarvam default)"
+description = "SwarSales AI LiveKit agent worker (Sarvam default)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-swarai-agent = "swarai_agent.main:run_cli"
+swarsales-agent = "swarsales_agent.main:run_cli"
 
 [build-system]
 requires = ["setuptools>=61"]

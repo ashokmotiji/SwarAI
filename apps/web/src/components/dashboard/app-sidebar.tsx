@@ -40,7 +40,7 @@ export function AppSidebar() {
   return (
     <aside className="flex w-64 flex-col border-r border-border bg-card/60 p-4">
       <Link href="/dashboard" className="mb-6 flex items-center gap-2 px-2">
-        <span className="text-lg font-semibold tracking-tight text-primary">SwarAI</span>
+        <span className="text-lg font-semibold tracking-tight text-primary">SwarSales AI</span>
         <span className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">beta</span>
       </Link>
       <nav className="flex flex-1 flex-col gap-1">

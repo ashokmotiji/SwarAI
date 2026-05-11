@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-We focus security fixes on the **default branch** of [SwarAI](https://github.com/ashokmotiji/SwarAI) (`main`). Older tags or forks may not receive patches.
+We focus security fixes on the **default branch** of [SwarSales AI](https://github.com/ashokmotiji/SwarSales-AI) (`main`). Older tags or forks may not receive patches.
 
 ## Reporting a vulnerability
 
@@ -10,7 +10,7 @@ We focus security fixes on the **default branch** of [SwarAI](https://github.com
 
 Instead:
 
-1. Use [GitHub Security Advisories](https://github.com/ashokmotiji/SwarAI/security/advisories/new) to **privately** report a vulnerability, if the feature is enabled on the repository, **or**
+1. Use [GitHub Security Advisories](https://github.com/ashokmotiji/SwarSales-AI/security/advisories/new) to **privately** report a vulnerability, if the feature is enabled on the repository, **or**
 2. Contact the maintainers through a **private channel** they have published (e.g. security email in the repo or org profile).
 
 Include:

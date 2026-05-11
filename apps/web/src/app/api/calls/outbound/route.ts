@@ -42,7 +42,7 @@ export async function POST(req: Request) {
   }
 
   const callId = randomUUID();
-  const roomName = `swarai-out-${callId}`;
+  const roomName = `swarsales-out-${callId}`;
 
   let agent: {
     id: string;
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
   const basePrompt =
     agent?.system_prompt ??
-    "You are SwarAI on a phone call. Greet briefly; confirm you are an AI assistant if asked.";
+    "You are SwarSales AI on a phone call. Greet briefly; confirm you are an AI assistant if asked.";
   const fullPrompt = await systemPromptWithFlow(supabase, agent?.id ?? body.agentId, basePrompt);
 
   const metadata = {
@@ -90,6 +90,7 @@ export async function POST(req: Request) {
     id: callId,
     org_id: orgId,
     agent_id: body.agentId ?? null,
+    customer_phone: body.to,
     channel: "phone",
     status: "active",
     livekit_room: roomName,

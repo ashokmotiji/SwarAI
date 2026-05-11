@@ -68,11 +68,11 @@ export async function provisionInboundPhoneSession(
   if (!quotaOk) return { ok: false, reason: "quota" };
 
   const callId = randomUUID();
-  const roomName = `swarai-in-${callId}`;
+  const roomName = `swarsales-in-${callId}`;
 
   const basePrompt =
     params.agent.system_prompt ||
-    "You are SwarAI on a phone call. Greet briefly; confirm you are an AI assistant if asked.";
+    "You are SwarSales AI on a phone call. Greet briefly; confirm you are an AI assistant if asked.";
   const fullPrompt = await systemPromptWithFlow(supabase, params.agent.id, basePrompt);
 
   const metadata = {

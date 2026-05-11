@@ -1,7 +1,7 @@
 import { ReadmePreviewSidebar } from "@/components/readme-preview/readme-preview-sidebar";
 
 export const metadata = {
-  title: "SwarAI — README preview",
+  title: "SwarSales AI — README preview",
   robots: { index: false, follow: false },
 };
 

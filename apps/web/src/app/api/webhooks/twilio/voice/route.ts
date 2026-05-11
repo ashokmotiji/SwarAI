@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     roomName = prov.roomName;
   }
 
-  vr.say({ voice: "Polly.Aditi" }, `Connecting you to SwarAI. Please hold.`);
+  vr.say({ voice: "Polly.Aditi" }, `Connecting you to SwarSales AI. Please hold.`);
   let sipTarget: string;
   try {
     sipTarget = sipDialTarget(roomName);

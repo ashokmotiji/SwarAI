@@ -1,5 +1,5 @@
 /**
- * Research-backed defaults for SwarAI (2026): maximize cross-platform reach without vendor lock-in.
+ * Research-backed defaults for SwarSales AI (2026): maximize cross-platform reach without vendor lock-in.
  *
  * - LiveKit: one WebRTC/SFU path for browser, embed, and SIP-bridged phone — avoids rebuilding
  *   transport per channel (contrast: stitching separate Twilio Media Streams + custom web clients).

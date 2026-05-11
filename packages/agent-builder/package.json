@@ -1,5 +1,5 @@
 {
-  "name": "@swarai/agent-builder",
+  "name": "@swarsales/agent-builder",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -15,10 +15,10 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "lint": "eslint src/",
-    "test": "echo \"@swarai/agent-builder: no unit tests yet (CI placeholder)\""
+    "test": "echo \"@swarsales/agent-builder: no unit tests yet (CI placeholder)\""
   },
   "dependencies": {
-    "@swarai/core": "workspace:*",
+    "@swarsales/core": "workspace:*",
     "zod": "^3.24.1"
   },
   "devDependencies": {

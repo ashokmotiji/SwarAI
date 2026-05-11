@@ -44,8 +44,8 @@ export async function POST(req: Request) {
 
   const user = await currentUser();
   const orgId = await ensurePersonalOrg(userId, user?.primaryEmailAddress?.emailAddress ?? null);
-  const demoDefault = parseFloat(process.env.SWARAI_PAYU_DEMO_AMOUNT_INR ?? "100");
-  const proDefault = parseFloat(process.env.SWARAI_PAYU_PRO_AMOUNT_INR ?? "999");
+  const demoDefault = parseFloat(process.env.SWARSALES_PAYU_DEMO_AMOUNT_INR ?? "100");
+  const proDefault = parseFloat(process.env.SWARSALES_PAYU_PRO_AMOUNT_INR ?? "999");
   const amountNum =
     body.amountInr ??
     (body.intent === "pro" ? (Number.isFinite(proDefault) ? proDefault : 999) : Number.isFinite(demoDefault) ? demoDefault : 100);
@@ -75,7 +75,7 @@ export async function POST(req: Request) {
     user?.username ||
     user?.primaryEmailAddress?.emailAddress?.split("@")[0] ||
     "Customer";
-  const productinfo = body.intent === "pro" ? "SwarAI Pro" : "SwarAI demo";
+  const productinfo = body.intent === "pro" ? "SwarSales AI Pro" : "SwarSales AI demo";
 
   const udf1 = orgId;
   const udf2 = body.intent;

@@ -40,9 +40,9 @@ export async function POST() {
     customer: customerId,
     line_items: [{ price, quantity: 1 }],
     client_reference_id: orgId,
-    metadata: { swarai_org_id: orgId },
+    metadata: { swarsales_org_id: orgId },
     subscription_data: {
-      metadata: { swarai_org_id: orgId },
+      metadata: { swarsales_org_id: orgId },
     },
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings?checkout=success`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings?checkout=cancel`,

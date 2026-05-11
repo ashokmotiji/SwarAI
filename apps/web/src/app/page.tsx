@@ -10,7 +10,7 @@ export default function LandingPage() {
     <div className="min-h-dvh bg-background">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2">
-          <span className="text-xl font-semibold text-primary">SwarAI</span>
+          <span className="text-xl font-semibold text-primary">SwarSales AI</span>
           <Badge variant="secondary">open-core</Badge>
         </div>
         <nav className="flex items-center gap-3">
@@ -26,7 +26,7 @@ export default function LandingPage() {
               The voice agent platform built for Indian languages—and global scale.
             </h1>
             <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-              SwarAI pairs <span className="font-medium text-foreground">LiveKit</span> realtime rooms with{" "}
+              SwarSales AI pairs <span className="font-medium text-foreground">LiveKit</span> realtime rooms with{" "}
               <span className="font-medium text-foreground">Sarvam</span> Saaras v3 STT, Bulbul v3 TTS, and Sarvam-m
               LLM defaults. Add Twilio + Exotel telephony, a no-code builder, and self-hosting with Docker when you need
               it.
@@ -48,7 +48,7 @@ export default function LandingPage() {
           </div>
           <Card className="border-primary/20 bg-gradient-to-br from-card to-accent/40">
             <CardHeader>
-              <CardTitle>Why teams pick SwarAI</CardTitle>
+              <CardTitle>Why teams pick SwarSales AI</CardTitle>
               <CardDescription>Production patterns without losing operator simplicity.</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-2">

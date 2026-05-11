@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve SwarAI
+about: Create a report to help us improve SwarSales AI
 title: "[Bug] "
 labels: bug
 ---
@@ -28,7 +28,7 @@ What happened instead (include error messages or logs if safe to share — **no 
 - OS:
 - Node / pnpm version:
 - Browser (if UI):
-- SwarAI commit or version:
+- SwarSales AI commit or version:
 
 ## Additional context
 

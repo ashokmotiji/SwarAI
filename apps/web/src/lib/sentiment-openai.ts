@@ -8,7 +8,7 @@ export async function scoreSentimentWithOpenAI(text: string): Promise<{ label: s
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: process.env.SWARAI_SENTIMENT_MODEL ?? "gpt-4o-mini",
+        model: process.env.SWARSALES_SENTIMENT_MODEL ?? "gpt-4o-mini",
         temperature: 0.1,
         messages: [
           {

@@ -1,4 +1,4 @@
--- SwarAI — schema, pgvector, RLS (Clerk `sub` in JWT when using Supabase third-party auth)
+-- SwarSales AI — schema, pgvector, RLS (Clerk `sub` in JWT when using Supabase third-party auth)
 create extension if not exists "pgcrypto";
 create extension if not exists "vector";
 

@@ -5,7 +5,7 @@ import { applyRazorpayWebhook } from "@/lib/razorpay-billing-sync";
 /**
  * Razorpay webhook — verify `X-Razorpay-Signature` = HMAC-SHA256(webhook_secret, raw_body).
  * Persists idempotent rows in `razorpay_webhook_events` and updates org `settings.plan` / `settings.razorpay`
- * when payload notes include `swarai_org_id` (set on orders created via the dashboard API).
+ * when payload notes include `swarsales_org_id` (set on orders created via the dashboard API).
  * @see https://razorpay.com/docs/webhooks/validate-test/
  */
 export async function POST(req: Request) {

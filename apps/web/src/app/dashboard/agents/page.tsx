@@ -33,7 +33,7 @@ export default async function AgentsPage() {
                   <CardTitle className="text-base">{a.name}</CardTitle>
                   <CardDescription className="line-clamp-2">{a.system_prompt}</CardDescription>
                 </div>
-                <Badge variant="primary">{a.status}</Badge>
+                <Badge variant="default">{a.status}</Badge>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2 text-xs text-muted-foreground">
                 <span>Voice: {a.voice_id}</span>

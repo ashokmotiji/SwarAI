@@ -32,7 +32,7 @@ export async function GET() {
   return NextResponse.json(
     {
       ok,
-      service: "swarai-web",
+      service: "swarsales-web",
       checks,
       payments: {
         anyChargePath: pay.anyChargePath,

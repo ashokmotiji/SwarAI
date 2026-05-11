@@ -5,6 +5,9 @@ import { scoreSentimentFromText } from "@/lib/sentiment";
 import { scoreSentimentWithOpenAI } from "@/lib/sentiment-openai";
 import { suggestPromptImprovement } from "@/lib/prompt-optimization";
 import { dispatchCallCompletedWebhook } from "@/lib/webhook-outbound";
+import { syncToCrm } from "@/lib/crm-sync";
+import { generatePerformanceScorecard, generateCallSummary, extractOrderValue } from "@/lib/ai-analysis";
+import { extractCustomerContext } from "@/lib/context-learning";
 
 const BodySchema = z.object({
   callId: z.string().uuid(),
@@ -30,8 +33,8 @@ function historyToPlainText(history: Record<string, unknown>): string {
 }
 
 export async function POST(req: Request) {
-  const secret = process.env.SWARAI_INTERNAL_WEBHOOK_SECRET;
-  if (!secret || req.headers.get("x-swarai-internal") !== secret) {
+  const secret = process.env.SWARSALES_INTERNAL_WEBHOOK_SECRET;
+  if (!secret || req.headers.get("x-swarsales-internal") !== secret) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -51,6 +54,10 @@ export async function POST(req: Request) {
     score = aiSent.score;
   }
 
+  const { data: currentCall } = await supabase.from("calls").select("started_at").eq("id", body.callId).single();
+  const durationSeconds = currentCall?.started_at ? Math.floor((Date.now() - new Date(currentCall.started_at).getTime()) / 1000) : 0;
+  const orderValue = await extractOrderValue(text);
+
   const { error: upErr } = await supabase
     .from("calls")
     .update({
@@ -58,6 +65,9 @@ export async function POST(req: Request) {
       status: "completed",
       ended_at: new Date().toISOString(),
       sentiment_score: score,
+      sentiment_label: label,
+      duration_seconds: durationSeconds,
+      order_value: orderValue,
     })
     .eq("id", body.callId);
 
@@ -79,13 +89,71 @@ export async function POST(req: Request) {
     .single();
 
   if (call?.org_id) {
+    // Generate AI scorecard
+    const scorecard = await generatePerformanceScorecard(text);
+    if (scorecard) {
+      await supabase.from("performance_scorecards").insert({
+        call_id: body.callId,
+        agent_id: call.agent_id,
+        org_id: call.org_id,
+        ...scorecard
+      });
+    }
+
+    const summary = await generateCallSummary(text);
+
+    // Update customer context
+    const { data: callPlus } = await supabase.from("calls").select("customer_phone").eq("id", body.callId).single();
+    if (callPlus?.customer_phone) {
+      const { data: existingCtx } = await supabase
+        .from("customer_contexts")
+        .select("context_data")
+        .eq("org_id", call.org_id)
+        .eq("customer_phone", callPlus.customer_phone)
+        .maybeSingle();
+
+      const newCtx = await extractCustomerContext(text, (existingCtx?.context_data as Record<string, unknown>) || {});
+
+      await supabase.from("customer_contexts").upsert({
+        org_id: call.org_id,
+        customer_phone: callPlus.customer_phone,
+        context_data: newCtx,
+        last_interaction_at: new Date().toISOString()
+      });
+    }
+
     const { data: orgRow } = await supabase.from("organizations").select("settings").eq("id", call.org_id).single();
-    await dispatchCallCompletedWebhook(orgRow?.settings as Record<string, unknown> | null, {
+    const settings = (orgRow?.settings as Record<string, unknown> | null);
+
+    const { data: updatedCall } = await supabase
+      .from("calls")
+      .select("order_value, duration_seconds, customer_phone")
+      .eq("id", body.callId)
+      .single();
+
+    const webhookPayload = {
       event: "call.completed",
       callId: body.callId,
       roomName: body.roomName,
       transcriptPreview: text.slice(0, 4000),
       sentiment: { label, score },
+      orderValue: updatedCall?.order_value,
+      duration: updatedCall?.duration_seconds,
+      customerPhone: updatedCall?.customer_phone,
+    };
+
+    await dispatchCallCompletedWebhook(settings, webhookPayload);
+
+    await syncToCrm(settings, {
+      callId: body.callId,
+      orgId: call.org_id,
+      agentId: call.agent_id ?? undefined,
+      customerPhone: updatedCall?.customer_phone ?? undefined,
+      transcript: body.history as unknown,
+      summary: summary,
+      sentiment: label,
+      orderValue: updatedCall?.order_value ?? 0,
+      duration: updatedCall?.duration_seconds ?? 0,
     });
   }
 
