@@ -1,6 +1,6 @@
 import { OpenAI } from "openai";
 
-export async function extractCustomerContext(transcript: string, currentContext: Record<string, any>) {
+export async function extractCustomerContext(transcript: string, currentContext: Record<string, unknown>) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return currentContext;
 

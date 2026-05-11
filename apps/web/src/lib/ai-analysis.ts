@@ -32,8 +32,8 @@ export async function generatePerformanceScorecard(transcript: string) {
     });
 
     return JSON.parse(response.choices[0].message.content || "{}");
-  } catch (e) {
-    console.error("Failed to generate scorecard:", e);
+  } catch (error) {
+    console.error("Failed to generate scorecard:", error);
     return null;
   }
 }
@@ -59,7 +59,7 @@ export async function generateCallSummary(transcript: string) {
     });
 
     return response.choices[0].message.content || "Summary unavailable";
-  } catch (e) {
+  } catch {
     return "Summary unavailable";
   }
 }
@@ -87,7 +87,7 @@ export async function extractOrderValue(transcript: string): Promise<number> {
     const content = response.choices[0].message.content || "0";
     const val = parseFloat(content.replace(/[^0-9.]/g, ""));
     return isNaN(val) ? 0 : val;
-  } catch (e) {
+  } catch {
     return 0;
   }
 }

@@ -7,20 +7,20 @@ export interface CrmSyncPayload {
   orgId: string;
   agentId?: string;
   customerPhone?: string;
-  transcript?: any;
+  transcript?: unknown;
   summary?: string;
   sentiment?: string;
   orderValue?: number;
   conversionRate?: number;
   duration?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export async function syncToCrm(settings: OrgSettings | null | undefined, payload: CrmSyncPayload): Promise<void> {
   const providers = ["hubspot", "salesforce", "zoho"] as const;
 
   for (const provider of providers) {
-    const config = settings?.[`${provider}Config`] as Record<string, any> | undefined;
+    const config = settings?.[`${provider}Config`] as Record<string, unknown> | undefined;
     if (config?.enabled && config?.webhookUrl) {
       const url = config.webhookUrl;
       const secret = config.webhookSecret || process.env.SWARSALES_CRM_WEBHOOK_SECRET || "";

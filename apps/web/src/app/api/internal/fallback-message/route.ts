@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     .eq("id", call.org_id)
     .single();
 
-  const settings = (org?.settings as Record<string, any>) || {};
+  const settings = (org?.settings as Record<string, unknown>) || {};
 
   if (body.channel === "whatsapp") {
     const waId = settings.whatsappPhoneNumberId || process.env.WHATSAPP_PHONE_NUMBER_ID;

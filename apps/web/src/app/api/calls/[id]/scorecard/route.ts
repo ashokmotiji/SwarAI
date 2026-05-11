@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { createServiceClient } from "@/lib/supabase/service";
-
-const BodySchema = z.object({
-  callId: z.string().uuid(),
-});
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

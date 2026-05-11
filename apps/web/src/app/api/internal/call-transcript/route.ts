@@ -112,7 +112,7 @@ export async function POST(req: Request) {
         .eq("customer_phone", callPlus.customer_phone)
         .maybeSingle();
 
-      const newCtx = await extractCustomerContext(text, (existingCtx?.context_data as Record<string, any>) || {});
+      const newCtx = await extractCustomerContext(text, (existingCtx?.context_data as Record<string, unknown>) || {});
 
       await supabase.from("customer_contexts").upsert({
         org_id: call.org_id,
@@ -149,7 +149,7 @@ export async function POST(req: Request) {
       orgId: call.org_id,
       agentId: call.agent_id ?? undefined,
       customerPhone: updatedCall?.customer_phone ?? undefined,
-      transcript: body.history,
+      transcript: body.history as unknown,
       summary: summary,
       sentiment: label,
       orderValue: updatedCall?.order_value ?? 0,

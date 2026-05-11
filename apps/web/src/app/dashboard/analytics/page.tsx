@@ -27,7 +27,7 @@ export default async function AnalyticsPage() {
     .filter((n): n is number => n != null && !Number.isNaN(n))
     .sort((a, b) => a - b);
   const p50 = latencies.length ? latencies[Math.floor(latencies.length * 0.5)] : null;
-  const p95 = latencies.length ? latencies[Math.floor(latencies.length * 0.95)] : null;
+  // const p95 = latencies.length ? latencies[Math.floor(latencies.length * 0.95)] : null;
   const sentimentAvg =
     completed.length > 0
       ? completed.reduce((a, c) => a + (Number(c.sentiment_score) || 0), 0) / completed.length
