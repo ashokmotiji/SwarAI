@@ -8,6 +8,8 @@ export const FlowNodeKindSchema = z.enum([
   "tool",
   "handoff",
   "end",
+  "objection",
+  "upsell",
 ]);
 
 export type FlowNodeKind = z.infer<typeof FlowNodeKindSchema>;
@@ -84,6 +86,12 @@ export function compileAgentFlowGraph(graph: unknown): string {
         break;
       case "end":
         lines.push(`- End: ${n.label}`);
+        break;
+      case "objection":
+        lines.push(`- Objection Handling (${n.label}): ${typeof cfg.strategy === "string" ? cfg.strategy : "address customer concern"}`);
+        break;
+      case "upsell":
+        lines.push(`- Upsell Opportunity (${n.label}): ${typeof cfg.offer === "string" ? cfg.text : "suggest related product"}`);
         break;
       default:
         lines.push(`- [${n.kind}] ${n.label}`);

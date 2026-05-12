@@ -1,6 +1,6 @@
-# SwarSales AI: Production-Ready AI Voice for Sales & Support
+# SwarSales AI: The World's Most Powerful AI Voice Platform for Sales & Support
 
-**SwarSales AI** is a best-in-class, open-core AI Voice platform designed for high-performance Outbound & Inbound Sales and Customer Support. It matches the advanced capabilities of world-leading AI sales agents while remaining modular and self-hostable.
+**SwarSales AI** is a best-in-class, open-core AI Voice platform engineered for high-performance CPG Sales, Outbound Lead Gen, and Customer Support. **Purpose-built to exceed commercial platforms like SalesCode.ai (SCAI)**, SwarSales AI offers superior modularity, lower latency, and deep enterprise integration—all while remaining fully open-source.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 ![Next.js 15](https://img.shields.io/badge/Next.js_15-000000?logo=next.js&logoColor=white&style=for-the-badge)
@@ -9,11 +9,11 @@
 
 ## 🚀 Key Capabilities
 
-### 1. Advanced Sales Voice Agent
-- **Outbound & Inbound:** Human-like, low-latency calls for lead qualification and sales closing.
-- **100+ Sales Scenarios:** Pre-built templates for order taking, promotion enrollment, upselling, and objection handling.
-- **Mock Call Training:** Dedicated "Skeptic Retailer" personas for sales rep training and onboarding.
-- **24/7 Availability:** Expert assistance for your sales teams anytime, anywhere.
+### 1. Advanced Sales Intelligence (SCAI-Killer)
+- **CPG Specialized:** Built-in tools for **Inventory Auditing**, **Competitive Intel Collection**, and **Instant Quote Generation**.
+- **Real-time Battle Cards:** Provides agents with strategic rebuttals and win-strategies mid-call when competitors are mentioned.
+- **100+ Sales Scenarios:** Advanced templates for complex order taking, promotion enrollment, and objection handling.
+- **Mock Call Training:** "Skeptic Retailer" personas for high-fidelity sales rep onboarding.
 
 ### 2. Customer Support Voice Agent
 - **Issue Resolution:** Automated ticket creation and escalation for complex complaints.

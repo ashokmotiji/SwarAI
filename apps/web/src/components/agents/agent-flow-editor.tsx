@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const KINDS: FlowNodeKind[] = ["start", "say", "listen", "branch", "tool", "handoff", "end"];
+const KINDS: (FlowNodeKind | "objection" | "upsell")[] = ["start", "say", "listen", "branch", "tool", "handoff", "end", "objection", "upsell"];
 
 type FlowNodeData = {
   kind: FlowNodeKind;
@@ -84,8 +84,12 @@ function fromGraph(graph: {
 }
 
 function FlowStepNode({ data }: NodeProps<Node<FlowNodeData>>) {
+  const isSpecial = data.kind === "objection" || data.kind === "upsell";
   return (
-    <div className="min-w-[140px] rounded-lg border border-border bg-card px-3 py-2 text-left shadow-sm">
+    <div className={cn(
+      "min-w-[140px] rounded-lg border px-3 py-2 text-left shadow-sm",
+      isSpecial ? "border-primary bg-primary/5" : "border-border bg-card"
+    )}>
       <p className="text-[10px] font-semibold uppercase text-primary">{data.kind}</p>
       <p className="text-sm font-medium leading-tight">{data.label}</p>
     </div>

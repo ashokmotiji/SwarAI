@@ -397,6 +397,124 @@ async def entrypoint(ctx: Any) -> None:
             return "WhatsApp service temporarily unavailable."
 
     @function_tool
+    async def collect_competitive_intel(competitor_name: str, pricing_found: str, activity_details: str) -> str:
+        """Capture insights about competitor products, pricing, and promotional activity in the retailer's store."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Intel collection not configured."
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(
+                    f"{base}/api/internal/sales-intel",
+                    json={
+                        "callId": cid,
+                        "competitor": competitor_name,
+                        "pricing": pricing_found,
+                        "details": activity_details
+                    },
+                    headers={"x-swarsales-internal": secret},
+                )
+                return f"Competitive intel for {competitor_name} recorded. Thank the retailer."
+        except Exception:
+            return "Failed to record intel, but proceed with the call."
+
+    @function_tool
+    async def record_inventory_check(product_name: str, stock_level: int, notes: str) -> str:
+        """Structured tool to record current stock levels of a product in the retailer's shop. Use this for CPG inventory tracking."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Inventory tracking not configured."
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(
+                    f"{base}/api/internal/inventory-audit",
+                    json={
+                        "callId": cid,
+                        "product": product_name,
+                        "stock": stock_level,
+                        "notes": notes
+                    },
+                    headers={"x-swarsales-internal": secret},
+                )
+                return f"Inventory for {product_name} ({stock_level} units) recorded."
+        except Exception:
+            return "Inventory recording failed."
+
+    @function_tool
+    async def get_sales_battle_card(competitor_name: str) -> str:
+        """Get strategic rebuttals and win-strategies against a specific competitor. Use this when the retailer mentions a rival brand or product."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Battle cards unavailable."
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                r = await client.post(
+                    f"{base}/api/internal/battle-card",
+                    json={"callId": cid, "competitor": competitor_name},
+                    headers={"x-swarsales-internal": secret},
+                )
+                if r.status_code == 200:
+                    data = r.json()
+                    card = data.get("card")
+                    if not card:
+                        return f"No specific battle card for {competitor_name}. Focus on our unique shelf-life and quality."
+                    return f"Battle Card for {competitor_name}: {json.dumps(card)}"
+                return "Could not retrieve battle card."
+        except Exception:
+            return "Battle card service offline."
+
+    @function_tool
+    async def validate_sales_order(items_json: str) -> str:
+        """Final validation of a sales order before processing. Checks availability and confirms total price/quantity with the retailer."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Order validation unavailable."
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                r = await client.post(
+                    f"{base}/api/internal/validate-order",
+                    json={"callId": cid, "items": items_json},
+                    headers={"x-swarsales-internal": secret},
+                )
+                if r.status_code == 200:
+                    data = r.json()
+                    if data.get("valid"):
+                        return f"Order Validated: {data.get('summary')}. Ask the customer for final 'YES' to place order."
+                    return f"Order Issue: {data.get('error')}. Please adjust with the customer."
+                return "Validation service error."
+        except Exception:
+            return "Validation service timed out."
+
+    @function_tool
+    async def generate_sales_quote(items_json: str) -> str:
+        """Generate a professional sales quote based on the discussed products and quantities. Automatically sends it via WhatsApp."""
+        cid = cfg_state["cfg"].call_id
+        base = os.getenv("SWARSALES_APP_URL", "").rstrip("/")
+        secret = os.getenv("SWARSALES_INTERNAL_WEBHOOK_SECRET", "")
+        if not cid or not base or not secret:
+            return "Quote generation unavailable."
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                r = await client.post(
+                    f"{base}/api/internal/generate-quote",
+                    json={"callId": cid, "items": items_json},
+                    headers={"x-swarsales-internal": secret},
+                )
+                if r.status_code == 200:
+                    return "Quote generated and sent to customer via WhatsApp. Inform them it should arrive in a few seconds."
+                return "Quote generation failed. Offer to send it manually later."
+        except Exception:
+            return "Quote service temporarily offline."
+
+    @function_tool
     async def request_human_handoff(reason: str) -> str:
         """Warm-transfer playbook when the user needs a human."""
         return (
@@ -418,6 +536,11 @@ async def entrypoint(ctx: Any) -> None:
         search_knowledge,
         get_customer_history,
         send_whatsapp_fallback,
+        collect_competitive_intel,
+        get_sales_battle_card,
+        record_inventory_check,
+        validate_sales_order,
+        generate_sales_quote,
         get_weather_india,
         maps_link,
         upi_collection_guidance,
