@@ -52,10 +52,26 @@ export async function POST(req: Request) {
     const ok = await sendWhatsAppText(call.customer_phone, body.message, waId, waToken);
     return NextResponse.json({ ok });
   } else {
-    // SMS Fallback logic (e.g. via Twilio)
-    // For now we'll just log it or use a generic Twilio helper if available
-    console.log(`Sending SMS to ${call.customer_phone}: ${body.message}`);
-    // implementation for Twilio SMS could go here
-    return NextResponse.json({ ok: true, message: "SMS logged (Twilio bridge needed)" });
+    const twilioSid = process.env.TWILIO_ACCOUNT_SID;
+    const twilioToken = process.env.TWILIO_AUTH_TOKEN;
+    const twilioFrom = process.env.TWILIO_FROM_NUMBER;
+
+    if (!twilioSid || !twilioToken || !twilioFrom) {
+      return NextResponse.json({ error: "Twilio SMS not configured on server" }, { status: 400 });
+    }
+
+    try {
+      const { default: twilio } = await import("twilio");
+      const client = twilio(twilioSid, twilioToken);
+      await client.messages.create({
+        body: body.message,
+        from: twilioFrom,
+        to: call.customer_phone,
+      });
+      return NextResponse.json({ ok: true });
+    } catch (e) {
+      console.error("Twilio SMS failed:", e);
+      return NextResponse.json({ error: "Failed to send SMS" }, { status: 500 });
+    }
   }
 }
